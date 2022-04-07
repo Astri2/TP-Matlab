@@ -22,7 +22,7 @@ function [ xFinal, i, err, fail ] = dichotomic2_func( a, b, tol, iterMax, trueVa
     FA=fun(a);
     err = [];
     while i <= iterMax
-        %on se place a 1/3 et 2/3 de deux bornes
+        %on se place a 1/3 et a 2/3 des deux bornes
         c1 = a + (b-a)/3;
         c2 = a + 2*(b-a)/3;
         %et on calcule les images
@@ -60,8 +60,7 @@ function [ xFinal, i, err, fail ] = dichotomic2_func( a, b, tol, iterMax, trueVa
         %on incremente i
         i=i+1;
     end
-    %apres iterMax iterations, on abandonne la recherche et on affiche un
-    %warning
+    %apres iterMax iterations, on abandonne la recherche et on affiche un warning
     fail=1;
     xFinal = (c1+c2) / 2;
 end
