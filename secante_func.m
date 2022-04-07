@@ -9,7 +9,7 @@ function[xFinal, i, err, fail] = secante_func(fun, a, b, iterMax, tol, trueValue
   %
   % * Sortie :
   %     -> xFinal - Float - L approximation de notre racine
-  %     -> nbIter - Int - Nombre d iterations necessaire pour trouver la bonne valeur
+  %     -> i - Int - Nombre d iterations necessaire pour trouver la bonne valeur
   %     -> err - [Float] - Valeur de l erreur entre l element calcule et la veritable valeur
   %     -> fail - Boolean - Vrai si la methode a echoue apres iterMax iterations
   

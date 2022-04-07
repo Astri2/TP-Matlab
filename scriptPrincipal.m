@@ -210,5 +210,8 @@ if(DispGraph)
   endif
   %finalement on affecte notre legende a la figure
   legend(legends,'FontSize',20);
+  title ("Log de l'erreur en fonction de l'itération n",'FontSize',40);
+  xlabel("itération n",'FontSize',30);
+  ylabel("Log10 de l'erreur absolue",'FontSize',30);
   hold off
 endif
