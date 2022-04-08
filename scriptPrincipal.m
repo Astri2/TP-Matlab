@@ -45,10 +45,12 @@ DoFalsePos=1;
 
 %Boolean pour savoir si on affiche toutes les valeurs derreurs
 DispAllErr=0;
+%Boolean pour savoir si on afficher l erreur maximal de la dicho/tricho ou juste lerreur effective
+DispErrMaxDichoTricho=1;
 %nombre de fois ou on fait tourner les methodes pour calculer leur temps dexecution
 nbIterationMethodes=100;
 %Boolean pour savoir si on affiche le graphe des erreurs
-DispGraph=1;
+DispGraph=1.3;
 
 fprintf('Format de l affichage :\nxFinal | iterations | temps moyen | log10(err)\n\n')
 
@@ -59,7 +61,7 @@ if(FaireDicoTricho == 1)
     tic 
     % on execute fois la methode pour calculer le temps moyen dexecution
     for k = 1:nbIterationMethodes
-        [xD, iD, errD, failD] = dichotomic_func(a,b,tol,iMax, R, fun);
+        [xD, iD, errD, errDMax, failD] = dichotomic_func(a,b,tol,iMax, R, fun);
     end
     %on arrette le chronometre et on divise par nbIterationMethodes pour faire la moyenne
     tD = toc/nbIterationMethodes;
@@ -77,7 +79,7 @@ if(FaireDicoTricho == 1)
 
     tic
     for k = 1:nbIterationMethodes
-        [xT, iT, errT, failT] = dichotomic2_func(a,b,tol,iMax, R, fun);
+        [xT, iT, errT, errTMax, failT] = dichotomic2_func(a,b,tol,iMax, R, fun);
     end
     tT = toc/nbIterationMethodes;
     
@@ -129,10 +131,6 @@ if(FairePointFixe == 1)
     if(failTP) fprintf('La methode du point fixe TP a echoue apres %d iterations\n',iMax) endif
     fprintf('xTP : %.10f | iTP : %d | tTP : %.10f | errTP: %.10f\n',xTP,iTP,tTP,log10(errTP(end)))
     if(DispAllErr) disp(errTP) endif
-    
-    %avec une tolerance suffisement faible, on remarque que la fonction
-    %donnee dans le sujet converge
-    %ca ressemble a notre poto newton
 end
 
 if(FaireNewton == 1)
@@ -191,10 +189,15 @@ if(DispGraph)
     plot(1:length(errT),log10(errT),markers(failT+1));
     %et on complete la legende
     legends = [ legends; 'dichotomie'; 'trichotomie'];
+    if(DispErrMaxDichoTricho)
+      plot(1:length(errDMax),log10(errDMax),"b--");
+      plot(1:length(errTMax),log10(errTMax),"r--");
+      legends = [ legends; 'dichoMax';'trichoMax'];
+    endif
   endif
   if(FairePointFixe)
-    plot(1:length(errP1),log10(errP1),markers(failP1+1));
-    legends = [ legends; 'point fixe 1'];
+    plot(1:length(errP2),log10(errP2),markers(failP2+1));
+    legends = [ legends; 'point fixe 2'];
   endif
   if(FaireNewton)
     plot(1:length(errN),log10(errN),markers(failN+1));
