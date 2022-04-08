@@ -36,7 +36,7 @@ function[xFinal, i, err, fail] = secante_func(fun, a, b, iterMax, tol, trueValue
     err = [err,abs(b - trueValue)];
     
     %si on a atteint le 0, on return
-    if(abs(FB) < tol)
+    if(abs(fun(b)) < tol)
       xFinal = b;
       return
     endif
