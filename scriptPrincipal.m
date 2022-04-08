@@ -196,8 +196,9 @@ if(DispGraph)
     endif
   endif
   if(FairePointFixe)
+    plot(1:length(errP1),log10(errP1),markers(failP1+1));
     plot(1:length(errP2),log10(errP2),markers(failP2+1));
-    legends = [ legends; 'point fixe 2'];
+    legends = [ legends; 'point fixe 1';'point fixe 2'];
   endif
   if(FaireNewton)
     plot(1:length(errN),log10(errN),markers(failN+1));
