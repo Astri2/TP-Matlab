@@ -21,14 +21,16 @@ function [ xFinal, i, err, fail ] = fixedPoint_func( fun, p0, iterMax, tol, true
         %on applique la suite c(n+1)= f(c(n))
         old=p0;
         p0=fun(p0);
+
         %on met a jour l'erreur
         err=[err,abs(p0-trueValue)];
-
+        
         #on regarde si on a converge vers un 0
         if(abs(p0-old) <= tol)
             xFinal=p0;
             return
         end
+        
         %on incremente i
         i=i+1;
     end

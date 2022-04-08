@@ -45,12 +45,12 @@ DoFalsePos=1;
 
 %Boolean pour savoir si on affiche toutes les valeurs derreurs
 DispAllErr=0;
-%Boolean pour savoir si on afficher l erreur maximal de la dicho/tricho ou juste lerreur effective
-DispErrMaxDichoTricho=1;
 %nombre de fois ou on fait tourner les methodes pour calculer leur temps dexecution
 nbIterationMethodes=100;
 %Boolean pour savoir si on affiche le graphe des erreurs
-DispGraph=1.3;
+DispGraph=1;
+%Boolean pour savoir si on afficher l erreur maximal de la dicho/tricho ou juste lerreur effective
+DispErrMaxDichoTricho=0;
 
 fprintf('Format de l affichage :\nxFinal | iterations | temps moyen | log10(err)\n\n')
 
@@ -216,5 +216,6 @@ if(DispGraph)
   title ("Log de l'erreur en fonction de l'itération n",'FontSize',40);
   xlabel("itération n",'FontSize',30);
   ylabel("Log10 de l'erreur absolue",'FontSize',30);
+  grid on
   hold off
 endif

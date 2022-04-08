@@ -34,12 +34,13 @@ function[xFinal, i, err, fail] = secante_func(fun, a, b, iterMax, tol, trueValue
 
     %on met a jour lerreur
     err = [err,abs(b - trueValue)];
-
+    
     %si on a atteint le 0, on return
     if(abs(FB) < tol)
       xFinal = b;
       return
     endif
+    
     %on incremente i
     i=i+1;
   end

@@ -21,13 +21,16 @@ function [ xFinal, i, err, fail ] = newton_func( fun, deriv, p0, iterMax, tol, t
     while(i <= iterMax)
       %on applique la suite c(n+1) = c(n) - f(c(n))/f(c(n))
       p0 = p0 - fun(p0)/deriv(p0);
+      
       %on met a jour lerreur
       err = [err,abs(p0-trueValue)];
+      
       %si on a atteint le 0 on return
       if(abs(fun(p0)) <= tol)
         xFinal = p0;
         return
       endif
+      
       %on incremente i
       i=i+1;
     endwhile

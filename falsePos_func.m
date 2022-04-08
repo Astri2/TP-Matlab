@@ -35,14 +35,17 @@ function[xFinal, i, err, fail] = falsePos_func(fun, a, b, iterMax, tol, trueValu
     c = b - FB/Fp;
     %on calcule limage du point calcule
     FC = fun(c);
+    
     %on met a jour lerreur
     err = [err,abs(c-trueValue)];
+    
     %si limage calculee est assez faible, on return
     if(abs(FC) < tol)
       xFinal = c;
       return
     endif
-    %sinon si FC et FB sont du meme signe, on met b a c 
+    
+    %si FC et FB sont du meme signe, on met b a c 
     if(FC*FB > 0)
       b = c;
     %sinon a a c

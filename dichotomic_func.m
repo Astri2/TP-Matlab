@@ -29,17 +29,19 @@ function [ xFinal, i, err, errMax fail ] = dichotomic_func( a, b, tol, iterMax, 
         c = a + (b-a)/2;
         %et on calcule l'image de ce milieu
         FC=fun(c);
-        
+                
         %on calcule l'erreur |cn-c|
         err = [err,abs(c-trueValue)];
         errMax = [errMax,abs((b-a)/2)];
-
-        if abs(FC) < tol % on sort une fois que l'intervalle est suffisement petit
+        
+        % on sort une fois que l'intervalle est suffisement petit
+        if abs(FC) < tol 
            xFinal = c;
            %on calcule la difference entre la vraie valeure et notre valeur
            %trouvee
            return
         end
+        
         %si FA et FC sont du meme signe, on met
         %a a c et FA a FC. Sinon on met b a c
         if FA*FC > 0

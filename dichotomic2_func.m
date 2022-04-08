@@ -30,26 +30,31 @@ function [ xFinal, i, err, errMax, fail ] = dichotomic2_func( a, b, tol, iterMax
         %et on calcule les images
         FC1 = fun(c1);
         FC2 = fun(c2);
+                
+        %on met a jour lerreur maximale
+        errMax = [errMax, abs((b-a)/3)];
         
         %Si FA et FC1 ne sont pas du meme signe,
         %   on met b a c1
         %sinon si FC1 et FC2 ne sont pas du meme signe,
         %   on met a a c1, FA a FC1 et b a c2
         %sinon on met a a c2 et FA a FC2.
-        errMax = [errMax, abs((b-a)/3)];
         if FA*FC1 < 0
             b=c1;
+            %on met a jour lerreur effective
             err = [err,abs(c1-trueValue)];
         elseif FC1*FC2 < 0
             a=c1;
             FA=FC1;
             b=c2;
+            %on met a jour lerreur effective en se placant au milieu de c1 et c2
             err = [err,(abs(c1-trueValue)+abs(c2-trueValue))/2];
         else
             a=c2;
             FA=FC2;
+            %on met a jour lerreur effective
             err = [err,abs(c2-trueValue)];
-        end
+        end   
         
         %si une des image est suffisemment proche de 0, on la retourne 
         if(abs(FC1) <= tol)
@@ -58,7 +63,7 @@ function [ xFinal, i, err, errMax, fail ] = dichotomic2_func( a, b, tol, iterMax
         elseif(abs(FC2) <= tol)
           xFinal = c2;
           return
-        endif     
+        endif  
         
         %on incremente i
         i=i+1;
