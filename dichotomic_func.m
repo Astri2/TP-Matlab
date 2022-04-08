@@ -1,4 +1,4 @@
-function [ xFinal, i, err, errMax fail ] = dichotomic_func( a, b, tol, iterMax, trueValue, fun )
+function [ xFinal, i, err, errMax, fail ] = dichotomic_func( a, b, tol, iterMax, trueValue, fun )
     %Fonction de dichotomie qui execute l'algorithme de dichotomie sur
     %l'intervalle [a,b] pour trouver la racine presente dans cet intervalle
     %
