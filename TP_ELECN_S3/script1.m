@@ -31,7 +31,7 @@ imshow(Im4);
 
 
 A = regionprops(Im4,'Centroid','Area','PixelIdxList');
-segm=segmentation(A);
+segm=segmentation(A(2));
 Im5 = ones(size(Im));
 Im5(segm) = 0;
 
