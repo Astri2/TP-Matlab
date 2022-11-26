@@ -31,7 +31,8 @@ imshow(Im4);
 
 
 A = regionprops(Im4,'Centroid','Area','PixelIdxList');
-segm=segmentation(A(2));
+% La partie qui nous intéresse est A(2), mais segmentation s occupe de le détecter pour nous.
+segm=segmentation(A);
 Im5 = ones(size(Im));
 Im5(segm) = 0;
 
