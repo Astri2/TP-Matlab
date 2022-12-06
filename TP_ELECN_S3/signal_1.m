@@ -24,7 +24,7 @@ s(t < -(T/fe)) = 0;
 % Affichage du signal
 figure(1);
 plot(t, s);
-ylim([0 2])
+ylim([0 2]);
 title('Signal s');
 xlabel('temps (s)');
 ylabel('amplitude');
@@ -88,7 +88,7 @@ plot(f, fftshift(X)); hold on; % affiche abs(X) pour avoir une superposition des
 plot(f, fftshift(S_carre), '--');
 xlabel('fréquences (Hz)');
 ylabel('spectres de X et S_{carre}');
-legend('X','S\_carre')
+legend('X','S\_carre');
 title('Signaux X et S_{carre}');
 
 %% Partie 2 : TF d'un signal carre
@@ -220,7 +220,7 @@ end
 
 SIGNAL_BRUITE_FILTRE = SIGNAL_BRUITE.*H;
 signal_bruite_filtre = ifft(SIGNAL_BRUITE_FILTRE);
-figure(14); 
+figure(14);
 subplot(2, 1, 1); plot(f, fftshift(abs(SIGNAL_BRUITE_FILTRE)));
 xlabel("fréquence (Hz)");
 ylabel("amplitude");
@@ -231,4 +231,3 @@ ylabel("amplitude");
 
 % Exporte les figures ouvertes en images dans le repertoire courant
 % export_figures();
-
