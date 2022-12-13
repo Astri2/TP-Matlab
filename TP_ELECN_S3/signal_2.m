@@ -3,11 +3,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 clear all;
-close all; 
+close all;
 clc;
 
-% pkg load image;
-% pkg load signal;
+pkg load image;
+pkg load signal;
 
 %% 1/
 % Chargement des données
@@ -22,7 +22,7 @@ N = length(X_ECG_Rep);          % Taille du vecteur
 t = linspace(0, N/fe, N);       % Echelle temporelle
 
 % Affichage des series temporelles
-figure(1); 
+figure(1);
 subplot(2, 1, 1); plot(t, X_ECG_Rep);
 xlabel('Temps (s)'); ylabel('Amplitude (mV)'); title('Signal ECG au repos')
 subplot(2, 1, 2); plot(t, X_ECG_Eff);
@@ -30,17 +30,17 @@ xlabel('Temps (s)'); ylabel('Amplitude (mV)'); title('Signal ECG pendant effort'
 
 %% 3/
 NFFT = 2 .^ nextpow2(N);                   % Next power of 2 from length of x
-FFT_ECG_Rep = fft(X_ECG_Rep, NFFT);        % TF repos 
+FFT_ECG_Rep = fft(X_ECG_Rep, NFFT);        % TF repos
 FFT_ECG_Eff = fft(X_ECG_Eff, NFFT);        % TF effort
 f = fe/2 * linspace(0, 1, NFFT/2);         % Semie-echelle fréquentielle
 
-% Affichage des spectres (module uniquement, pas la phase) 
+% Affichage des spectres (module uniquement, pas la phase)
 figure(2);
 subplot(2, 1, 1); plot(f, 2*abs(FFT_ECG_Rep(1:NFFT/2)));
-xlabel('Frequency (Hz)'); ylabel('|FFTECGRep(f)|'); 
+xlabel('Frequency (Hz)'); ylabel('|FFTECGRep(f)|');
 title('Single-Sided Amplitude Spectrum of XECGRep');
 subplot(2, 1, 2); plot(f, 2*abs(FFT_ECG_Eff(1:NFFT/2)));
-xlabel('Frequency (Hz)'); ylabel('|FFTECGEff(f)|'); 
+xlabel('Frequency (Hz)'); ylabel('|FFTECGEff(f)|');
 title('Single-Sided Amplitude Spectrum of XECGEff');
 
 %% 4/ Extraction de la série temporelle RR
@@ -110,7 +110,7 @@ RR_ECG_Rep = diff(t(B_Rep));
 RR_ECG_Eff = diff(t(B_Eff));
 
 figure(5);
-plot(0:length(RR_ECG_Rep)-1,RR_ECG_Rep); 
+plot(0:length(RR_ECG_Rep)-1,RR_ECG_Rep);
 hold on
 plot(0:length(RR_ECG_Eff)-1,RR_ECG_Eff,'r');
 legend('Rep','Eff')
@@ -145,18 +145,18 @@ ylabel("spectre")
 title("Spectre du signal effort filtré entre 0.04 et 0.4Hz")
 
 %% 6/
-PSD_RR_ECG_Rep_filtre = abs(fft(RR_ECG_Rep_filtre.*transpose(hann(length(RR_ECG_Rep_filtre))),nb_points_fft)).^2;
-PSD_RR_ECG_Eff_filtre = abs(fft(RR_ECG_Eff_filtre.*transpose(hann(length(RR_ECG_Eff_filtre))),nb_points_fft)).^2;
+[PSD_RR_ECG_Rep_filtre, ff] = abs(fft(RR_ECG_Rep_filtre.*hann(length(RR_ECG_Rep_filtre))',nb_points_fft)).^2;
+[PSD_RR_ECG_Eff_filtre, ff2] = abs(fft(RR_ECG_Eff_filtre.*hann(length(RR_ECG_Eff_filtre))',nb_points_fft)).^2;
 
 figure(7);
 % Affichage PSD des series RR filtrees
 subplot(2,1,1)
-plot(-64:63, fftshift(PSD_RR_ECG_Rep_filtre))
+plot(ff, abs(PSD_RR_ECG_Rep_filtre(1:nb_points_fft/2)))
 xlabel("fréquences")
-ylabel("densité spectrale")
+ylabel("spectre")
 title("densité spectrale du signal repos")
 subplot(2,1,2)
-plot(-64:63, fftshift(PSD_RR_ECG_Eff_filtre))
+plot(ff2, abs(PSD_RR_ECG_Eff_filtre(1:nb_points_fft/2)))
 xlabel("fréquences")
-ylabel("densité spectrale")
+ylabel("spectre")
 title("densité spectrale du signal effort")
